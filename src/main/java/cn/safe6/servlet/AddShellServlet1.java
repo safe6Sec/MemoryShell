@@ -17,6 +17,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 
+/**
+ * Servlet内存马添加，不用standardContext#addChild方法。全部用反射实现
+ */
 @WebServlet("/add1")
 public class AddShellServlet1 extends HttpServlet {
 

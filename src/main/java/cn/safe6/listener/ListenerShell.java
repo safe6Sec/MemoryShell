@@ -6,14 +6,12 @@ import org.apache.catalina.connector.Response;
 
 import javax.servlet.ServletRequestEvent;
 import javax.servlet.ServletRequestListener;
-import javax.servlet.annotation.WebListener;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.Scanner;
 
-@WebListener
-public class TestListener implements ServletRequestListener {
-    public void requestDestroyed(ServletRequestEvent servletRequestEvent) {
+public class ListenerShell implements ServletRequestListener {
+    public void requestDestroyed(ServletRequestEvent sre) {
 
     }
 
@@ -45,6 +43,5 @@ public class TestListener implements ServletRequestListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 }
