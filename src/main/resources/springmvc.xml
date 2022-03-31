@@ -13,6 +13,7 @@ http://www.springframework.org/schema/context/spring-context.xsd
 
     <!-- 配置⾃动扫描 -->
     <context:component-scan base-package="cn.safe6.controller"/>
+
     <!-- 视图解析器 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <!-- 前缀 -->
@@ -20,4 +21,5 @@ http://www.springframework.org/schema/context/spring-context.xsd
         <!-- 后缀 -->
         <property name="suffix" value=".jsp"></property>
     </bean>
+
 </beans>
