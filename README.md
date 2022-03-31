@@ -8,6 +8,8 @@
 - [java内存马分析(一) 环境搭建](https://mp.weixin.qq.com/s/4Bz6UQzC6SEnjSPC4W5fyQ)
 - [java内存马分析(二) Servlet内存马](https://mp.weixin.qq.com/s/VLc5TmTAuCttS_DhUSdBuw)
 - [java内存马分析(三) Filter内存马](https://mp.weixin.qq.com/s/OWH42PojsFGO4fHSsUJhnw)
+- listener内存马已完成，文章待定
+- 
 
 ## servlet内存马
 原理：
@@ -26,5 +28,11 @@
 详细步骤见代码。
 ![](img/filter.png)
 
+## listener内存马
+原理：
+创建listener马，获取StandardContext使用addApplicationEventListener添加内存马。
+详细步骤见代码。
+
 # 挖掘思路
-- 通过正向添加，然后从上下文对象里面找。找对应存储的变量，分析对象构成。然后结合反射进行动态注册。
+- 通过正向添加，然后从分析上下文。找对应存储的变量，分析对象构成。然后结合反射进行动态注册。
+- 分析正向添加底层实现原理，然后结合反射实现动态注册。
