@@ -10,6 +10,8 @@ http://www.springframework.org/schema/context/spring-context.xsd
  http://www.springframework.org/schema/mvc
  http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
 
+    <!--配置注解机制-->
+    <mvc:annotation-driven/>
 
     <!-- 配置⾃动扫描 -->
     <context:component-scan base-package="cn.safe6.controller"/>

