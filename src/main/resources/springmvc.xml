@@ -19,9 +19,13 @@ http://www.springframework.org/schema/context/spring-context.xsd
     <!-- 视图解析器 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <!-- 前缀 -->
-        <property name="prefix" value="/WEB-INF/"></property>
+        <property name="prefix" value="/WEB-INF/"/>
         <!-- 后缀 -->
-        <property name="suffix" value=".jsp"></property>
+        <property name="suffix" value=".jsp"/>
     </bean>
+
+    <mvc:interceptors>
+        <bean class="cn.safe6.controller.interceptor.MyInterceptor"/>
+    </mvc:interceptors>
 
 </beans>
