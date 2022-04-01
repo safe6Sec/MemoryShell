@@ -8,7 +8,7 @@
 - [java内存马分析(一) 环境搭建](https://mp.weixin.qq.com/s/4Bz6UQzC6SEnjSPC4W5fyQ)
 - [java内存马分析(二) Servlet内存马](https://mp.weixin.qq.com/s/VLc5TmTAuCttS_DhUSdBuw)
 - [java内存马分析(三) Filter内存马](https://mp.weixin.qq.com/s/OWH42PojsFGO4fHSsUJhnw)
-- listener内存马已完成，文章待定
+- [java内存马分析(四) Listener内存马](https://mp.weixin.qq.com/s/wNa8kR1t1KmyhItC_GmGQA)
 - controller内存马已完成，文章待定
 - interceptor内存马已完成，文章待定
 
