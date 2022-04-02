@@ -11,6 +11,7 @@
 - [java内存马分析(四) Listener内存马](https://mp.weixin.qq.com/s/wNa8kR1t1KmyhItC_GmGQA)
 - controller内存马已完成，文章待定
 - interceptor内存马已完成，文章待定
+- weblogic内存马已完成，文章待定
 
 ## servlet内存马
 原理：

