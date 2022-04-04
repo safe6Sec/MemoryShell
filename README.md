@@ -12,6 +12,7 @@
 - [java内存马分析(五) weblogic注入内存马](https://mp.weixin.qq.com/s/2sxsJKwhzxJsYrcEQRZ6Yg)
 - controller内存马已完成，文章待定
 - interceptor内存马已完成，文章待定
+- agent内存马已完成，文章待定
 
 ## servlet内存马
 原理：
