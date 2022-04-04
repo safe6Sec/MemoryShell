@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Main-Class: com.demo.agent.Main
+Agent-Class: com.demo.agent.Main
+Can-Redefine-Classes: true
+Can-Retransform-Classes: true
+
