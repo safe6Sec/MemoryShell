@@ -10,9 +10,9 @@
 - [java内存马分析(三) Filter内存马](https://mp.weixin.qq.com/s/OWH42PojsFGO4fHSsUJhnw)
 - [java内存马分析(四) Listener内存马](https://mp.weixin.qq.com/s/wNa8kR1t1KmyhItC_GmGQA)
 - [java内存马分析(五) weblogic注入内存马](https://mp.weixin.qq.com/s/2sxsJKwhzxJsYrcEQRZ6Yg)
-- controller内存马已完成，文章待定
-- interceptor内存马已完成，文章待定
-- agent内存马已完成，文章待定
+- [java内存马分析(六) Controller内存马](https://www.freebuf.com/articles/web/327633.html)
+- interceptor内存马已完成，文章待更新
+- agent内存马已完成，文章待更新
 
 ## servlet内存马
 原理：
