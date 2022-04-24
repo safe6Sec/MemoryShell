@@ -13,7 +13,7 @@ import java.io.ObjectInputStream;
  *
  * 反序列化测试
  */
-@WebServlet("/test")
+@WebServlet("/ser")
 public class Test extends HttpServlet {
 
 
